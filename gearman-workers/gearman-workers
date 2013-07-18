@@ -1,0 +1,32 @@
+#!/bin/bash
+
+WORK_DIR="/lib/foo"
+DAEMON="/usr/bin/python"
+ARGS="/PATH/gearman-worker-metasigner.py"
+PIDFILE="/var/run/gworker/gworkers.pid"
+USER="root"
+
+# example init script to run gworker written in python  like gearman-worker-metasigner.py
+
+
+case "$1" in
+  start)
+    echo "Starting g-worker: ${ARGS}"
+    /sbin/start-stop-daemon --start --pidfile $PIDFILE \
+        --user $USER --group $USER \
+        -b --make-pidfile \
+        --chuid $USER \
+        --exec $DAEMON $ARGS
+    ;;
+  stop)
+    echo "Stopping server"
+    /sbin/start-stop-daemon --stop --pidfile $PIDFILE --verbose
+    ;;
+  *)
+    echo "Usage: /etc/init.d/gearman-workers {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
+
