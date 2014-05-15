@@ -1,0 +1,53 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides: jaggr-mailer
+# Required-Start: $syslog $network $local_fs $remote_fs
+# Required-Stop: $syslog $network $local_fs $remote_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: jaggermailer send mail from jagger resource registry
+### END INIT INFO
+ARGS="JAGGER_PATH/index.php gworkers mailqueuesender"
+DAEMON="/usr/bin/php"
+PIDFILE="/var/run/jagger/mailqueuesender.pid"
+USER="www-data"
+
+if [ ! -d /var/run/jagger ] ; then
+    mkdir /var/run/jagger
+fi
+
+start_jaggermailer()
+{
+    echo "Starting jaggermailer: ${ARGS}"
+    /sbin/start-stop-daemon --start --pidfile $PIDFILE \
+        --user $USER --group $USER \
+        -b --make-pidfile \
+        --chuid $USER \
+        --exec $DAEMON $ARGS
+}
+
+stop_jaggermailer()
+{
+    echo "Stopping service"
+    /sbin/start-stop-daemon --stop --pidfile $PIDFILE --verbose
+}
+case "$1" in
+  start)
+    start_jaggermailer
+    ;;
+  stop)
+    stop_jaggermailer
+    ;;
+  restart)
+    stop_jaggermailer
+    sleep 3
+    start_jaggermailer
+    ;;
+  *)
+    echo "Usage: /etc/init.d/jaggermailer {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
