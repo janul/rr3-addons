@@ -62,9 +62,10 @@ def metadatasigner(gearman_worker, gearman_job):
                print "encmae is empty"
        else:
            print "encname key not found in json"
+       digestMethod = str(y['digest'])   
        outputFile = destination+"/"+y['type']+"/"+y['encname']+"/metadata.xml"
        sourcePath = str(y["src"])
-       bcommand = xmlsecommand + " --sign --certificate "+ cert  +" --key "+certkey+" --keyPassword "+cerpass+" --outFile "+outputFile+"  --inUrl " +  sourcePath
+       bcommand = xmlsecommand + " --sign --certificate "+ cert  +" --key "+certkey+" --keyPassword "+cerpass+" --digest  "+digestMethod+" --outFile "+outputFile+"  --inUrl " +  sourcePath
        #u = urllib2.urlopen(y['src'])
        gearman_worker.send_job_data(gearman_job, "downloding and signing metadata")
        u = subprocess.Popen(bcommand.split(), stdout=subprocess.PIPE)
