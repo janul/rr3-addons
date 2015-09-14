@@ -66,7 +66,7 @@ def metadatasigner(gearman_worker, gearman_job):
        outputFile = destination+"/"+y['type']+"/"+y['encname']+"/metadata.xml"
        sourcePath = str(y["src"])
        if len(cerpass) > 0:
-         bcommand = xmlsecommand + "--referenceIdAttributeName ID  --sign --certificate "+ cert  +" --key "+certkey+" --keyPassword "+cerpass+" --digest  "+digestMethod+" --outFile "+outputFile+"  --inUrl " +  sourcePath
+         bcommand = xmlsecommand + " --referenceIdAttributeName ID  --sign --certificate "+ cert  +" --key "+certkey+" --keyPassword "+cerpass+" --digest  "+digestMethod+" --outFile "+outputFile+"  --inUrl " +  sourcePath
        else:
          bcommand = xmlsecommand + " --referenceIdAttributeName ID  --sign --certificate "+ cert  +" --key "+certkey+"  --digest  "+digestMethod+" --outFile "+outputFile+"  --inUrl " +  sourcePath
        #u = urllib2.urlopen(y['src'])
