@@ -1,0 +1,54 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides: jaggercrond
+# Required-Start: $syslog $network $local_fs $remote_fs
+# Required-Stop: $syslog $network $local_fs $remote_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: jaggercrond checks for tasks in resource registry
+### END INIT INFO
+ARGS="{JAGGER}/index.php gworkers jcronmonitor"
+DAEMON="/usr/bin/php"
+PIDFILE="/var/run/jagger/jaggercrond.pid"
+USER="www-data"
+
+if [ ! -d /var/run/jagger ] ; then
+    mkdir /var/run/jagger
+fi
+
+start_jaggercrond()
+{
+    echo "Starting jaggercrond: ${ARGS}"
+    /sbin/start-stop-daemon --start --pidfile $PIDFILE \
+        --user $USER --group $USER \
+        -b --make-pidfile \
+        --chuid $USER \
+        --exec $DAEMON $ARGS
+}
+
+stop_jaggercrond()
+{
+    echo "Stopping service"
+    /sbin/start-stop-daemon --stop --pidfile $PIDFILE --verbose
+}
+
+case "$1" in
+  start)
+    start_jaggercrond
+    ;;
+  stop)
+    stop_jaggercrond
+    ;;
+  restart)
+    stop_jaggercrond
+    sleep 3
+    start_jaggercrond
+    ;;
+  *)
+    echo "Usage: /etc/init.d/jaggercrond {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
