@@ -1,9 +1,13 @@
 rr3-addons
 ==========
 
-Additions scripts/tools for Edugate Resource Registry https://github.com/Edugate/ResourceRegistry
+Additions scripts/tools for Edugate Jagger: https://github.com/Edugate/ResourceRegistry
 
-# HOW TO ENABLE "Sign" BUTTON ON JAGGER:
+## Table of Contents
+
+1. [How to enable "Sign" button on Jagger](#how-to-enable-sign-button-on-jagger)
+
+## How to enable "Sign" button on Jagger:
 
 1. Install the required packages:
 
