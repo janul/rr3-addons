@@ -1,5 +1,15 @@
 #!/bin/bash
 
+### BEGIN INIT INFO
+# Provides:          gearman-workers
+# Required-Start:    $local_fs $network
+# Required-Stop:     $local_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: gearman-workers start script.
+# Description:       Start gearman-workers service.
+### END INIT INFO
+
 WORK_DIR="/lib/foo"
 DAEMON="/usr/bin/python"
 ARGS="/PATH/gearman-worker-metasigner.py"
