@@ -56,6 +56,7 @@ Additions scripts/tools for Edugate Jagger: https://github.com/Edugate/ResourceR
 11. Modify the ```/opt/rr3-addons/gearman-workers/gearman-workers``` variables by following this example:
 
    * ```vim /opt/rr3-addons/gearman-workers/gearman-workers```
+
      ```
      DAEMON="/usr/bin/python"
      ARGS="/opt/rr3-addons/gearman-workers/gearman-worker-metasigner.py"
