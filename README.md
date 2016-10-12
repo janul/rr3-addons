@@ -6,6 +6,7 @@ Additions scripts/tools for Edugate Jagger: https://github.com/Edugate/ResourceR
 ## Table of Contents
 
 1. [How to enable "Sign" button on Jagger](#how-to-enable-sign-button-on-jagger)
+2. [How to enable email notification on Jagger](#how-to-enable-email-notification-on-jagger)
 
 ## How to enable "Sign" button on Jagger:
 
@@ -98,3 +99,21 @@ Additions scripts/tools for Edugate Jagger: https://github.com/Edugate/ResourceR
     B) service gearman-workers start
    
 16. Now the **Sign** button for your federation is enabled and you can sign your metadata.
+
+## How to enable email notification on Jagger
+
+1. Configure your machine to be able to send mails. (By using [PostFix](https://www.digitalocean.com/community/tutorials/how-to-install-and-setup-postfix-on-ubuntu-14-04) for example)
+
+2. Retrieve the [jaggermailer](./jaggermailer) script and put it into the ```/etc/init.d/``` directory:
+   * ```cd /etc/init.d/ ; wget https://raw.githubusercontent.com/malavolti/rr3-addons/master/jaggermailer -O jaggermailer```
+
+3. Add the permission to run to the script:
+   * ```chmod +x /etc/init.d/jaggermailer```
+   
+4. Modify the ```jaggermailer``` script by replacing the word "```JAGGER_PATH```" with the path of your jagger directory
+
+5. Change the owner and the group of the directory "Proxies":
+   * ```chown www-data:www-data /opt/rr3/application/model/Proxies```
+   
+5. Start the service:
+   * ```service jaggermailer start```
