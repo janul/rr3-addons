@@ -112,7 +112,7 @@ Additions scripts/tools for Edugate Jagger: https://github.com/Edugate/ResourceR
    
 4. Modify the ```jaggermailer``` script by replacing the word "```JAGGER_PATH```" with the path of your jagger directory
 
-5. Change the owner and the group of the directory "Proxies":
+5. Change the owner and the group of the directory "Proxies" (www-data ==> Apache2):
    * ```chown www-data:www-data /opt/rr3/application/model/Proxies```
    
 5. Start the service:
