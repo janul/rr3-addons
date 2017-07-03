@@ -1,5 +1,9 @@
-rr3-addons
+rr3-addons - needs to be updated regarding RabbitMQ 
 ==========
+
+
+
+
 
 Additions scripts/tools for Edugate Jagger: https://github.com/Edugate/ResourceRegistry
 
