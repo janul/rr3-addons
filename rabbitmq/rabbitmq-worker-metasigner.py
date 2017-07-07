@@ -59,8 +59,12 @@ def finalcallback(ch, method, properties, body):
     decoded = base64_url_decode(body)
     print(" Decoded body:: %r " % decoded) 
     y = json.loads(decoded)
-    for a in y:
-        signer(a)
+    if isinstance(y, dict) and 'encname' in y:
+        signer(y)
+    else:
+        for a in y:
+            signer(a)
+
 
     print(" [x] Done")
     ch.basic_ack(delivery_tag = method.delivery_tag)
