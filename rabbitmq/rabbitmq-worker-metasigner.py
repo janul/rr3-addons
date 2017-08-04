@@ -123,52 +123,6 @@ def signer(data):
             os.chown(outputFile, uid, gid)
         print('Signingn metadata for %r has beend finished' %encnamestr)
 
-
-
-
-
-
-
-
-def metadatasigner(gearman_worker, gearman_job):
-    y = json.loads(gearman_job.data)
-    print(type(str(y['type'])))
-    print(y)
-    if y['type'] in allowedtypes:
-       if 'encname' in y:
-           print "encname exists in json"
-           encnamestr = str(y['encname']);
-           print(encnamestr)
-           if len(encnamestr) > 0:
-               print "encname not empty"
-               fullpath = destination+'/'+str(y['type'])+'/'+str(y['encname'])
-               print(fullpath)
-               if not os.path.exists(fullpath):
-                   print "fullpath not existing creating"
-                   os.makedirs(fullpath) 
-               else:
-                   print "full path exists"
-           else:
-               print "encmae is empty"
-       else:
-           print "encname key not found in json"
-       digestMethod = str(y['digest'])   
-       outputFile = destination+"/"+y['type']+"/"+y['encname']+"/metadata.xml"
-       sourcePath = str(y["src"])
-       if len(cerpass) > 0:
-         bcommand = xmlsecommand + " --referenceIdAttributeName ID  --sign --certificate "+ cert  +" --key "+certkey+" --keyPassword "+cerpass+" --digest  "+digestMethod+" --outFile "+outputFile+"  --inUrl " +  sourcePath
-       else:
-         bcommand = xmlsecommand + " --referenceIdAttributeName ID  --sign --certificate "+ cert  +" --key "+certkey+"  --digest  "+digestMethod+" --outFile "+outputFile+"  --inUrl " +  sourcePath
-       #u = urllib2.urlopen(y['src'])
-       gearman_worker.send_job_data(gearman_job, "downloding and signing metadata")
-       u = subprocess.Popen(bcommand.split(), stdout=subprocess.PIPE)
-       output = u.communicate()[0]
-       os.chown(outputFile, uid, gid)
-       gearman_worker.send_job_data(gearman_job, "done")
-       print gm_worker.gearmanJobRequest.state
-       return gearman_job.data
-
-
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(finalcallback,
                       queue='metadatasigner')
