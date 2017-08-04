@@ -28,6 +28,7 @@ rabbitmqHost = 'localhost'
 rabbitmqPort = 5672
 rabbitmqUser = 'guest'
 rabbitmqPassword = 'guest'
+rabbitmqVhost = '/'
 
 # your apache uid
 uid=pwd.getpwnam("www-data").pw_uid
@@ -44,7 +45,7 @@ if not os.path.exists(destination+'/'):
     sys.exit('Error! '+destination+' doesnt exist')
 
 credentials = pika.PlainCredentials(rabbitmqUser, rabbitmqPassword)
-connection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmqHost,port=rabbitmqPort,credentials=credentials))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmqHost,port=rabbitmqPort,credentials=credentials,virtual_host=rabbitmqVhost))
 channel = connection.channel()
 channel.queue_declare(queue='metadatasigner', durable=True)
 print(' [*] Waiting for messages. To exit press CTRL+C')
