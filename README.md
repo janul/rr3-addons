@@ -1,10 +1,6 @@
 rr3-addons - needs to be updated regarding RabbitMQ 
 ==========
 
-
-
-
-
 Additions scripts/tools for Edugate Jagger: https://github.com/Edugate/ResourceRegistry
 
 ## Table of Contents
@@ -76,7 +72,7 @@ Additions scripts/tools for Edugate Jagger: https://github.com/Edugate/ResourceR
     cert="/opt/md-signer/metadata-signer.crt"                                /* Certificate for signing */
     certkey="/opt/md-signer/metadata-signer.key"                             /* Key for signing */
     cerpass="#CERTPASS#"                                                     /* Password of the Key or leave empty */
-    destination="#JAGGER_PATH#/signedmetadata"                                    /* Path of your Jagger "signedmetadata" folder */
+    destination="#JAGGER_PATH#/signedmetadata"                               /* Path of your Jagger "signedmetadata" folder */
     allowedtypes = ['federation','provider','federationexport']
     ```
 
@@ -91,6 +87,7 @@ Additions scripts/tools for Edugate Jagger: https://github.com/Edugate/ResourceR
   * Enable SHA-256 Signature as default
   */
   $config['signdigest'] = 'SHA-256';
+  $config['mq'] = 'gearman';
 
   /**
   * gearman - Remove the comment to these lines to enable the "Sign" button on Jagger
@@ -110,7 +107,7 @@ Additions scripts/tools for Edugate Jagger: https://github.com/Edugate/ResourceR
 1. Configure your machine to be able to send mails. (By using [PostFix](https://www.digitalocean.com/community/tutorials/how-to-install-and-setup-postfix-on-ubuntu-14-04) for example)
 
 2. Retrieve the [jaggermailer](./jaggermailer) script and put it into the ```/etc/init.d/``` directory:
-   * ```cd /etc/init.d/ ; wget https://raw.githubusercontent.com/malavolti/rr3-addons/master/jaggermailer -O jaggermailer```
+   * ```cp /opt/rr3-addons/jaggermailer /etc/init.d/jaggermailer```
 
 3. Add the permission to run to the script:
    * ```chmod +x /etc/init.d/jaggermailer```
